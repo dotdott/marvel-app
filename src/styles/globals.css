@@ -1,0 +1,39 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+}
+
+@font-face {
+    font-family: 'Marvel';
+    src: url('./fonts/marvelregular-dj83.woff') format("woff");
+}
+
+@font-face {
+    font-family: 'axiforma_bold';
+    src: url('./fonts/axiforma_bold.woff') format("woff");
+}
+
+@font-face {
+    font-family: 'axiforma_light';
+    src: url('./fonts/axiforma_light.woff') format("woff");
+}
+
+@font-face {
+    font-family: 'axiforma_medium';
+    src: url('./fonts/axiforma_medium.woff') format("woff");
+}
+
+@font-face {
+    font-family: 'axiforma_regular';
+    src: url('./fonts/axiforma_regular.woff') format("woff");
+}
+
+@font-face {
+    font-family: 'axiforma_thin';
+    src: url('./fonts/axiforma_thin.woff') format("woff");
+}
