@@ -9,17 +9,16 @@ import { AnimatePresence } from 'framer-motion';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-      {/* initial={false} */}
         <AnimatePresence exitBeforeEnter>
-          <Route exact path="/" component={Preload} />
-          <Route path="/login" component={Login} />
-          <Route path="/browse" component={Browse} />
-          <Route path="/signup" component={Signup} />
+          <Router>
+            <Switch>
+                <Route exact path="/" component={Preload} />
+                <Route path="/login" component={Login} />
+                <Route path="/browse" component={Browse} />
+                <Route path="/signup" component={Signup} />
+            </Switch>
+          </Router>
         </AnimatePresence>
-      </Switch>
-    </Router>
   );
 }
 

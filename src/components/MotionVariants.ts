@@ -60,3 +60,8 @@ export const imageVariants = {
         transition,
     }
 };
+
+export const welcomeVariants = {
+    exit: { opacity: 0, transition: { duration: 4, ease: 'easeOut'}  },
+    enter: { opacity: 1.5, transition }
+}

@@ -19,6 +19,7 @@ import {
     SubscribeInviteText,
     
     SloganWrapper,
+    ErrorText,
 } from './styles';
 
 import {
@@ -31,8 +32,15 @@ import {
 import { useState } from 'react';
 import { Background } from '../../components/Background';
 import { motion } from 'framer-motion';
-import { loginLogoVariants, loginVariants } from '../../components/MotionVariants';
+import { loginLogoVariants, loginVariants, welcomeVariants } from '../../components/MotionVariants';
+import { useDispatch, useSelector } from 'react-redux';
 
+
+interface ErrorData {
+    errors: {
+        error: string;
+    }
+}
 
 export function Login() {
     const [changes, setChanges] = useState({
@@ -40,13 +48,23 @@ export function Login() {
         password: '',
     })
 
-    // if(auth.uid) return <Redirect to='/' />
+    const dispatch = useDispatch();
+
+    const ERROR = useSelector((state: ErrorData) => {
+        const err = state.errors;
+
+        return err.error
+    });
 
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        console.log(changes.email, changes.password)
+        dispatch({ 
+            type: 'SIGN_IN',
+            email: changes.email,
+            password: changes.password
+        })
     }
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -71,7 +89,7 @@ export function Login() {
                     style={{
                         height: '100%',
                     }}
-                    initial="enter"
+                    initial={false}
                     animate="exit"
                     exit="exit"
                     variants={loginLogoVariants}
@@ -85,6 +103,16 @@ export function Login() {
                             </MarvelTitle>
                     </SloganWrapper>
                 </motion.div>
+
+                <motion.h1 
+                    className="welcome_message"
+                    initial="enter"
+                    animate="exit"
+                    exit="exit"
+                    variants={welcomeVariants}
+                >
+                    Bem-vindo(a) de volta !
+                </motion.h1>
 
                 <motion.div
                     initial="exit"
@@ -108,6 +136,8 @@ export function Login() {
                                 onChange={e => handleChange(e)}
                             />
 
+                            <ErrorText>{ERROR}</ErrorText>
+
                             <SaveLoginWrapper>
                                 <SaveLoginLabel htmlFor="save">
                                     <SaveLoginCheckbox type="checkbox" id="save" />
@@ -121,7 +151,7 @@ export function Login() {
                         </Form>
                         <SubscribeInviteText>
                             Ainda não tem o login?
-                        <Link to="/signup">Cadastre-se</Link>
+                        <Link to="/signup"> Cadastre-se</Link>
                         </SubscribeInviteText>
                     </LoginContainer>
                 </motion.div>

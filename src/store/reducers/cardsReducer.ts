@@ -5,7 +5,11 @@ import {
     HQsSection
 } from '../actions';
 
-const cardsReducer = (state = INITIAL_STATE, action: any) => {
+interface ActionsProps {
+    type: string;
+}
+
+const cardsReducer = (state = INITIAL_STATE, action: ActionsProps) => {
     switch (action.type) {
         case 'FETCH_CHARACTERS':
             console.log('Fetched characters');

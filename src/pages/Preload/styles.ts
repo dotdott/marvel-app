@@ -43,6 +43,16 @@ export const Container = styled.div`
                 height: 100%;
             }
     }
+
+    & .welcome_message {
+        color: #ff0000;
+        z-index: 2;
+        font-family: 'axiforma_medium', sans-serif;
+        pointer-events: none;
+        position: absolute;
+        left: 12%;
+        top: 27%;
+    }
 `;
 
 export const SloganWrapper = styled.div`

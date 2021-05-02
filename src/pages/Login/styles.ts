@@ -88,6 +88,11 @@ export const LoginButton = styled.button`
 
 export const SubscribeInviteText = styled.p`
     margin-left: 2rem;
+
+    & a {
+        color: #ff0000;
+        text-decoration: none;
+    }
 `;
 
 export const SloganWrapper = styled.div`
@@ -96,4 +101,9 @@ export const SloganWrapper = styled.div`
     top: 32%;
     height: 100vh;
     z-index: 2;
+`;
+
+export const ErrorText = styled.p`
+    margin-left: 1rem;
+    color: #ff0000;
 `;

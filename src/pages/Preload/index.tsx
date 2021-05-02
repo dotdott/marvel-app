@@ -16,8 +16,9 @@ export function Preload() {
 
     return (
         <motion.div
-            initial="hidden"
-            animate="visible"
+            initial='initial'
+            animate='animate'
+            exit='exit'
             variants={variants}
             style={{    
                 position: 'absolute',
