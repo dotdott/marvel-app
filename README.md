@@ -1,5 +1,5 @@
 ## working in progress..
-- [Check live](https://marvel-app.vercel.app/login)
+- [Check live](https://marvel-app.vercel.app/)
 
 ## About it
 - This project was writed PT-BR.
