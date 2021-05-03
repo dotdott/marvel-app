@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import styled from 'styled-components';
 import { CardsContext } from '../contexts/CardsContext';
 import { devices } from '../styles/devices';
-import CardModal from './CardModal';
 
 const Container = styled.div`
     position: relative;
@@ -62,28 +61,6 @@ const CardDetails = styled.p`
 `;
 
 
-const CardModalBackground = styled.div`
-    width: 100%;
-    height: 100vh;
-
-    position: absolute;
-    top: -4px;
-    z-index: 99;
-
-    background: linear-gradient( 
-        0.25turn
-        ,#000,#000 61%, rgba(255,255,255,.15) 100% 
-    );
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-        ${devices.m1600}{
-            top: -2%;
-        }
-`;
-
 interface CardProps {
     card: {
         id: string;
@@ -95,19 +72,17 @@ interface CardProps {
 
 export function Card({ card }: CardProps) {
     const {
-        cardId,
-        showDetails,
-        openModal
+        openModal,
+        setSelectedCard
     } = useContext(CardsContext);
+
+    function handleCard({ card }: CardProps){
+        openModal(card.id);
+        setSelectedCard(card);
+    }
 
     return (
         <>
-            {showDetails && cardId === card.id &&
-                <CardModalBackground>
-                    <CardModal card={card} />
-                </CardModalBackground>
-            }
-
             <Container>
                 <CardImage src={card.image} alt="Imagem background da Wanda Maximoff" />
 
@@ -120,7 +95,7 @@ export function Card({ card }: CardProps) {
                     </CardInfoWrapper>
 
                     <CardDetails
-                        onClick={() => openModal(card.id)}
+                        onClick={() => handleCard({ card })}
                     >
                         ver detalhes
                 </CardDetails>

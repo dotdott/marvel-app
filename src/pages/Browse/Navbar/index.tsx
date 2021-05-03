@@ -12,6 +12,7 @@ import {
 
     Navigation,
     NavItem,
+    UserIcon,
 
     MenuMobile,
     CloseMenuButton,
@@ -24,6 +25,12 @@ function BrowseNavbar() {
     const dispatch = useDispatch();
 
     const size = WindowResize();
+
+    function logout(){
+        dispatch({
+            type: 'LOG_OUT'
+        });
+    }
 
     return (
         <Navbar>
@@ -96,7 +103,11 @@ function BrowseNavbar() {
                     </NavItem>
                 </motion.div>
 
-                <NavItem>
+                <NavItem 
+                    last
+                    onClick={logout}
+                >
+                    <UserIcon src="/assets/avatar.png" alt="dummy photo" />
                     Sair
                 </NavItem>
             </Navigation>

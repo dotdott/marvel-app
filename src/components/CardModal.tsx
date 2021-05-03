@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { CardsContext } from '../contexts/CardsContext';
 
 interface Props {
-    reverse: string;
+    reverse?: string;
 }
 
 const Container = styled.div<Props>`
@@ -62,25 +62,18 @@ const CloseModal = styled.img`
     cursor: pointer;
 `;
 
-
-interface CardProps{
-    card: {
-        id: string;
-        title: string;
-        content: string;
-        image: string;
-    }
-}
-
-export default function CardModal({card}: CardProps) {
-    const { closeModal } = useContext(CardsContext);
+export default function CardModal() {
+    const { 
+        closeModal,
+        selectedCard
+    } = useContext(CardsContext);
 
     return (
-        <Container reverse={card.id}>
-            <CardImage src={card.image} alt="Card image"/>
+        <Container reverse={selectedCard.id}>
+            <CardImage src={selectedCard.image} alt="Card image"/>
 
             <CardInfoWrapper>
-                <CardTitle>{card.title}</CardTitle>
+                <CardTitle>{selectedCard.title}</CardTitle>
                 <CardInfo>Aparições:</CardInfo>
                 <CardInfoSpan>Vingadores - era de Ultron</CardInfoSpan>
                 <CardInfoSpan>Vingadores - era de Ultron</CardInfoSpan>
@@ -98,7 +91,7 @@ export default function CardModal({card}: CardProps) {
                 </div>
 
                 <CloseModal 
-                    onClick={() => closeModal(card.id)}
+                    onClick={() => closeModal(selectedCard.id)}
                     src="/assets/close_x.svg"
                     alt="Botão de fechar"
                 />

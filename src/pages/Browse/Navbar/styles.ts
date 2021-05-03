@@ -3,6 +3,7 @@ import { devices } from '../../../styles/devices';
 
 interface Props {
     active?: boolean;
+    last?: boolean;
 }
 
 export const Navbar = styled.div`
@@ -73,10 +74,16 @@ export const Navigation = styled.ol<Props>`
 `;
 
 export const NavItem = styled.ul<Props>`
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+
     color: #84848D;
-    text-decoration: none;
-    font-size: 1.5rem;
+    font-size: ${Props => Props.last ? 1.2 : 1.5}rem;
     font-weight: 600;
+    
+    text-decoration: none;
+    cursor: pointer;
 
     & a {
         color: #84848D;
@@ -98,6 +105,14 @@ export const NavItem = styled.ul<Props>`
         }
     }
 `;
+
+export const UserIcon = styled.img`
+    width: 50px;
+    height: 50px;
+    border-radius: 20px;
+    cursor: pointer;
+`;
+
 
 export const MenuMobile = styled.img`
     height: 30px;

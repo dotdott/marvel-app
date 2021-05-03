@@ -19,8 +19,9 @@ export async function Signup(email: string, password: string) {
         })
 }
 
-export function logout() {
-    return auth.signOut();
+export async function logout() {
+    await auth.signOut();
+    return window.location.href = '/';
 }
 
 export function resetPassword(email: string) {

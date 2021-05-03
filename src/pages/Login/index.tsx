@@ -89,7 +89,7 @@ export function Login() {
                     style={{
                         height: '100%',
                     }}
-                    initial={false}
+                    initial="enter"
                     animate="exit"
                     exit="exit"
                     variants={loginLogoVariants}

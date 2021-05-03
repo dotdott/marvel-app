@@ -6,19 +6,23 @@ import { Preload } from './pages/Preload';
 import { Signup } from './pages/Login/Signup';
 import { Login } from './pages/Login';
 import { AnimatePresence } from 'framer-motion';
+import { CardsProvider } from './contexts/CardsContext';
 
 function App() {
   return (
-        <AnimatePresence exitBeforeEnter>
-          <Router>
-            <Switch>
-                <Route exact path="/" component={Preload} />
-                <Route path="/login" component={Login} />
-                <Route path="/browse" component={Browse} />
-                <Route path="/signup" component={Signup} />
-            </Switch>
-          </Router>
-        </AnimatePresence>
+    <CardsProvider>
+      <AnimatePresence exitBeforeEnter>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Preload} />
+            <Route path="/login" component={Login} />
+            <Route path="/browse" component={Browse} />
+            <Route path="/signup" component={Signup} />
+          </Switch>
+        </Router>
+      </AnimatePresence>
+    </CardsProvider>
+
   );
 }
 
