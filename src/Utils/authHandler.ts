@@ -1,5 +1,5 @@
-import { auth } from "../../firebase";
-import { handleErrors } from "../../Utils/handleErrors";
+import { auth } from "../firebase";
+import { errorsHandler } from './errorsHandler';
 
 const type = {
   error: "FAILURE",
@@ -12,7 +12,7 @@ export async function login(email: string, password: string) {
 
     return { type: type.success, value: user.user };
   } catch (err) {
-    const error = handleErrors(err.code);
+    const error = errorsHandler(err.code);
 
     return { type: type.error, value: error };
   }
@@ -24,12 +24,10 @@ export async function Signup(email: string, password: string) {
 
     return { type: type.success, value: user };
   } catch (err) {
-    const error = handleErrors(err.code);
+    const error = errorsHandler(err.code);
 
     return { type: type.error, value: error };
   }
-
-  //   return (window.location.href = "/browse");
 }
 
 export async function logout() {

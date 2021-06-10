@@ -1,4 +1,4 @@
-export function handleErrors(code: string) {
+export function errorsHandler(code: string) {
   let error;
 
   if (code === "auth/email-already-in-use") {

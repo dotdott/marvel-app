@@ -1,119 +1,111 @@
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { WindowResize } from '../../../Utils/WindowResize';
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { NavLink, useHistory } from "react-router-dom";
+import { Types } from "../../../store/reducers/userReducer";
+import { logout } from "../../../Utils/authHandler";
+import { WindowResize } from "../../../Utils/WindowResize";
 
 import {
-    LogoRedBackground,
-    LogoTitle,
-    LogoWrapper,
-    Navbar,
-
-    Navigation,
-    NavItem,
-    UserIcon,
-
-    MenuMobile,
-    CloseMenuButton,
-} from './styles';
-
+  LogoRedBackground,
+  LogoTitle,
+  LogoWrapper,
+  Navbar,
+  Navigation,
+  NavItem,
+  UserIcon,
+  MenuMobile,
+  CloseMenuButton,
+} from "./styles";
 
 function BrowseNavbar() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const size = WindowResize();
+  const history = useHistory();
 
-    function logout(){
-        dispatch({
-            type: 'LOG_OUT'
-        });
-    }
+  const size = WindowResize();
 
-    return (
-        <Navbar>
-            <LogoWrapper>
-                <LogoRedBackground />
-                <LogoTitle>
-                    ma <br />
-                </LogoTitle>
-            </LogoWrapper>
+  async function handleLogout() {
+    await logout();
 
-            {size.width !== undefined && size.width < 768 &&
-                <MenuMobile
-                    src="/assets/menu.svg"
-                    alt="menu de hamburgue"
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                />
-            }
+    dispatch({
+      type: Types.CLEAN_USER_STORE,
+    });
 
-            <Navigation active={isMenuOpen}>
-                {size.width !== undefined && size.width < 768 && isMenuOpen &&
-                    <CloseMenuButton
-                        src="/assets/close_x.svg"
-                        alt="Botão de fechar menu"
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    />
-                }
-                <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                >
-                    <NavItem>
-                        <NavLink
-                            to="/browse"
-                            exact={true}
-                            activeClassName="active"
-                            onClick={() => dispatch({ type: 'FETCH_CHARACTERS' })}
-                        >
-                            Personagens
-                        </NavLink>
-                    </NavItem>
-                </motion.div>
+    return history.push("/");
+  }
 
-                <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                >
-                    <NavItem>
-                        <NavLink
-                            to="/browse/movies"
-                            activeClassName="active"
-                            onClick={() => dispatch({ type: 'FETCH_MOVIES' })}
-                        >
-                            Filmes
-                        </NavLink>
-                    </NavItem>
-                </motion.div>
+  return (
+    <Navbar>
+      <LogoWrapper>
+        <LogoRedBackground />
+        <LogoTitle>
+          ma <br />
+        </LogoTitle>
+      </LogoWrapper>
 
-                <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                >
-                    <NavItem>
-                        <NavLink
-                            to="/browse/HQs"
-                            activeClassName="active"
-                            onClick={() => dispatch({ type: 'FETCH_HQS' })}
-                        >
-                            HQs
-                        </NavLink>
-                    </NavItem>
-                </motion.div>
+      {size.width !== undefined && size.width < 768 && (
+        <MenuMobile
+          src="/assets/menu.svg"
+          alt="menu de hamburgue"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        />
+      )}
 
-                <NavItem 
-                    last
-                    onClick={logout}
-                >
-                    <UserIcon src="/assets/avatar.png" alt="dummy photo" />
-                    Sair
-                </NavItem>
-            </Navigation>
+      <Navigation active={isMenuOpen}>
+        {size.width !== undefined && size.width < 768 && isMenuOpen && (
+          <CloseMenuButton
+            src="/assets/close_x.svg"
+            alt="Botão de fechar menu"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          />
+        )}
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <NavItem>
+            <NavLink
+              to="/browse"
+              exact={true}
+              activeClassName="active"
+              onClick={() => dispatch({ type: "FETCH_CHARACTERS" })}
+            >
+              Personagens
+            </NavLink>
+          </NavItem>
+        </motion.div>
 
-        </Navbar>
-    )
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <NavItem>
+            <NavLink
+              to="/browse/movies"
+              activeClassName="active"
+              onClick={() => dispatch({ type: "FETCH_MOVIES" })}
+            >
+              Filmes
+            </NavLink>
+          </NavItem>
+        </motion.div>
+
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <NavItem>
+            <NavLink
+              to="/browse/HQs"
+              activeClassName="active"
+              onClick={() => dispatch({ type: "FETCH_HQS" })}
+            >
+              HQs
+            </NavLink>
+          </NavItem>
+        </motion.div>
+
+        <NavItem last onClick={handleLogout}>
+          <UserIcon src="/assets/avatar.png" alt="dummy photo" />
+          Sair
+        </NavItem>
+      </Navigation>
+    </Navbar>
+  );
 }
 
 export default BrowseNavbar;

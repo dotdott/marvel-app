@@ -4,16 +4,16 @@ import { Background } from "../../components/Background";
 import { Card } from "../../components/Card";
 import { Dropdown } from "../../components/Dropdown";
 import { CardsContext } from "../../contexts/CardsContext";
-import BrowseNavbar from "./Navbar";
 
 import { CardWrapper, Container } from "./styles";
 
 import { WindowResize } from "../../Utils/WindowResize";
 import { useContext } from "react";
 import { devices } from "../../styles/devices";
+
 import CardModal from "../../components/CardModal";
 import styled from "styled-components";
-
+import BrowseNavbar from "./Navbar";
 interface stateProps extends Element {
   card: CardProps[];
 }
