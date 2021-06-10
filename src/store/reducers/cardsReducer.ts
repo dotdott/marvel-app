@@ -1,35 +1,24 @@
-import { 
-    INITIAL_STATE,
-    MoviesSection, 
-    MoviesChronology,
-    HQsSection
-} from '../actions';
+import { createActions, createReducer } from "reduxsauce";
 
-interface ActionsProps {
-    type: string;
-}
+const INITIAL_STATE = {
+  id: -1,
+  image: "",
+  title: "",
+  content: "",
+};
 
-const cardsReducer = (state = INITIAL_STATE, action: ActionsProps) => {
-    switch (action.type) {
-        case 'FETCH_CHARACTERS':
-            console.log('Fetched characters');
-            return state = INITIAL_STATE;
+export const { Types, Creators } = createActions({
+  setCardsStore: ["id", "image", "title", "content"],
+});
 
-        case 'FETCH_MOVIES':
-            console.log('fetched movies');
-            return state = MoviesSection;
+const setCardsStore = (state = INITIAL_STATE, action: any) => ({
+  ...state,
+  id: action.id,
+  image: action.image,
+  title: action.title,
+  content: action.content,
+});
 
-        case 'FETCH_MOVIES_CHRONOLOGY':
-            console.log('fetched movies CHRONOLOGY');
-            return state = MoviesChronology;
-
-        case 'FETCH_HQS':
-            console.log('fetched HQs');
-            return state = HQsSection;
-
-        default:
-            return state;
-    }
-}
-
-export default cardsReducer;
+export default createReducer(INITIAL_STATE, {
+  [Types.SET_CARDS_STORE]: setCardsStore,
+});
