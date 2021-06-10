@@ -1,33 +1,33 @@
-import styled from 'styled-components';
-import { devices } from '../../styles/devices';
+import styled from "styled-components";
+import { devices } from "../../styles/devices";
 
 export const Container = styled.div`
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    color: #fff;
-`;  
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  color: #fff;
+`;
 
 export const CardWrapper = styled.div`
-    position: absolute;
-    top: 10%;
+  position: absolute;
+  top: 10%;
 
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10rem;
 
-        ${devices.m1600}{
-            gap: 2rem;
-        }
+  ${devices.m1600} {
+    gap: 2rem;
+  }
 `;
 
 export const ArrowIcon = styled.img`
-    height: 40px;
-    cursor: pointer;
-    margin: 0 1rem;
+  height: 40px;
+  cursor: pointer;
+  margin: 0 1rem;
 `;
