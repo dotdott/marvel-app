@@ -1,4 +1,17 @@
 import styled from "styled-components";
+import { FaUser, FaLock } from "react-icons/fa";
+
+export const UserIcon = styled(FaUser)`
+  position: relative;
+  top: -51px;
+  left: 15px;
+`;
+
+export const LockIcon = styled(FaLock)`
+  position: relative;
+  top: -51px;
+  left: 15px;
+`;
 
 export const LoginContainer = styled.div`
   position: relative;
@@ -28,6 +41,7 @@ export const Form = styled.form`
 
 export const UsernameInput = styled.input`
   padding: 1.1rem;
+  padding-left: 2.5rem;
   border-radius: 999px;
   border: none;
   outline: none;
@@ -38,6 +52,8 @@ export const SaveLoginWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  margin-top: -33px;
 `;
 export const SaveLoginLabel = styled.label`
   margin-left: 1rem;
@@ -45,16 +61,8 @@ export const SaveLoginLabel = styled.label`
 export const SaveLoginCheckbox = styled.input`
   margin-right: 5px;
   border-radius: 2px;
-
-  &::after {
-    content: "";
-    width: 11px;
-    height: 11px;
-    border: 1px solid #ff0000;
-    border-radius: 3px;
-    display: inline-block;
-  }
 `;
+
 export const ForgetPassword = styled.a`
   position: relative;
   width: auto;
@@ -67,9 +75,21 @@ export const ForgetPassword = styled.a`
     bottom: -4px;
     left: 2px;
     width: 110%;
-    height: 1px;
+    height: 3px;
     background-color: #ff0000;
     content: "";
+  }
+
+  &:hover {
+    filter: brightness(1.5);
+    transition: ease 0.3s all;
+
+    &::after {
+      background: #84848d;
+      left: -10px;
+      width: 100%;
+      transition: ease 0.5s all;
+    }
   }
 `;
 
@@ -83,6 +103,11 @@ export const LoginButton = styled.button`
   border-radius: 999px;
   border: none;
   cursor: pointer;
+
+  &:hover {
+    filter: brightness(0.8);
+    transition: ease 0.2s all;
+  }
 `;
 
 export const SubscribeInviteText = styled.p`
@@ -91,6 +116,28 @@ export const SubscribeInviteText = styled.p`
   & a {
     color: #ff0000;
     text-decoration: none;
+    cursor: pointer;
+    position: relative;
+
+    &::after {
+      position: absolute;
+      bottom: -4px;
+      left: 6px;
+      width: 90%;
+      height: 4px;
+      content: "";
+    }
+
+    &:hover {
+      transition: ease 0.2s all;
+
+      &::after {
+        background-color: #ff0000;
+        height: 2px;
+        /* width: 100%; */
+        transition: ease 0.5s all;
+      }
+    }
   }
 `;
 

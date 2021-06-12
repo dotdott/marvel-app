@@ -15,6 +15,8 @@ import {
   SloganWrapper,
   ErrorText,
   LoadingState,
+  UserIcon,
+  LockIcon,
 } from "./styles";
 
 import {
@@ -32,6 +34,7 @@ import {
   loginVariants,
   welcomeVariants,
 } from "../../components/MotionVariants";
+
 import { useDispatch, useSelector } from "react-redux";
 import { Types } from "../../store/reducers/userReducer";
 import { IUser } from "../../store/types";
@@ -157,12 +160,15 @@ export function Login() {
                   placeholder="E-mail"
                   onChange={(e) => handleChange(e)}
                 />
+                <UserIcon size={16} color={"#000"} />
+
                 <PasswordInput
                   type="password"
                   name="password"
                   placeholder="Senha"
                   onChange={(e) => handleChange(e)}
                 />
+                <LockIcon size={16} color={"#000"} />
 
                 <ErrorText>{error}</ErrorText>
                 <SaveLoginWrapper>
