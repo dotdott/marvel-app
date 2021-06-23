@@ -26,7 +26,7 @@ import {
   MarvelWrapper,
 } from "../Preload/styles";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Background } from "../../components/Background";
 import { motion } from "framer-motion";
 import {
@@ -40,6 +40,7 @@ import { Types } from "../../store/reducers/userReducer";
 import { IUser } from "../../store/types";
 import Loader from "../../components/Loader";
 import { login } from "../../Utils/authHandler";
+import { useRef } from "react";
 
 interface IStateUserProps {
   stateUser: IUser;
@@ -57,8 +58,8 @@ export function Login() {
     email: "",
     password: "",
   });
-
   const [isLoading, setIsLoading] = useState(false);
+  const [saveLogin, setSaveLogin] = useState(true);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -81,6 +82,7 @@ export function Login() {
           name: user.displayName,
           email: user.email,
           photo_url: user.photoURL,
+          save_login: saveLogin,
         });
 
         setIsLoading(false);
@@ -173,7 +175,12 @@ export function Login() {
                 <ErrorText>{error}</ErrorText>
                 <SaveLoginWrapper>
                   <SaveLoginLabel htmlFor="save">
-                    <SaveLoginCheckbox type="checkbox" id="save" />
+                    <SaveLoginCheckbox
+                      type="checkbox"
+                      id="save"
+                      checked={saveLogin}
+                      onChange={() => setSaveLogin(!saveLogin)}
+                    />
                     Salvar login
                   </SaveLoginLabel>
 
