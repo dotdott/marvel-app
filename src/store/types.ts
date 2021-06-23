@@ -5,6 +5,8 @@ export interface IUser {
   email: string;
   photo_url: string;
 
+  save_login: boolean;
+
   error: string;
 }
 

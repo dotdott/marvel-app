@@ -8,13 +8,15 @@ const INITIAL_STATE: IUser = {
   email: "",
   photo_url: "",
 
+  save_login: false,
+
   error: "",
 };
 
 export const { Types, Creators } = createActions({
-  setUserStore: ["id", "name", "email", "surname", "photo_url"],
+  setUserStore: ["id", "name", "email", "surname", "photo_url", 'save_login'],
   userErrorAuth: ["error"],
-  cleanUserStore: ["id", "name", "email", "surname", "photo_url", "error"],
+  cleanUserStore: ["id", "name", "email", "surname", "photo_url", "error", 'save_login'],
 });
 
 const setUserStore = (state = INITIAL_STATE, action: IUser) => ({
@@ -23,6 +25,7 @@ const setUserStore = (state = INITIAL_STATE, action: IUser) => ({
   name: action.name,
   surname: action.surname,
   email: action.email,
+  save_login: action.save_login,
   photo_url: action.photo_url,
 });
 
@@ -38,6 +41,7 @@ const cleanUserStore = (state = INITIAL_STATE, action: IUser) => ({
   surname: "",
   photo_url: "",
   email: "",
+  save_login: false,
   error: "",
 });
 
