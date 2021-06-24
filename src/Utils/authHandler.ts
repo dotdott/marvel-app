@@ -18,11 +18,11 @@ export async function login(email: string, password: string) {
   }
 }
 
-export async function Signup(email: string, password: string) {
+export async function signup(email: string, password: string) {
   try {
-    const user = auth.createUserWithEmailAndPassword(email, password);
+    const user = await auth.createUserWithEmailAndPassword(email, password);
 
-    return { type: type.success, value: user };
+    return { type: type.success, value: user.user };
   } catch (err) {
     const error = errorsHandler(err.code);
 

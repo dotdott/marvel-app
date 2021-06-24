@@ -1,23 +1,19 @@
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import { Background } from "../../components/Background";
+import Loader from "../../components/Loader";
 
 import {
-  LoginContainer,
-  Title,
-  Form,
-  UsernameInput,
-  PasswordInput,
-  SaveLoginWrapper,
-  SaveLoginLabel,
-  SaveLoginCheckbox,
-  ForgetPassword,
-  LoginButton,
-  SubscribeInviteText,
-  SloganWrapper,
-  ErrorText,
-  LoadingState,
-  UserIcon,
-  LockIcon,
-} from "./styles";
+  loginLogoVariants,
+  loginVariants,
+  welcomeVariants,
+} from "../../components/MotionVariants";
+
+import { Types } from "../../store/reducers/userReducer";
+import { IFirebaseUser, IStateUserProps } from "../../types_global";
+import { login } from "../../Utils/authHandler";
 
 import {
   Container,
@@ -26,32 +22,24 @@ import {
   MarvelWrapper,
 } from "../Preload/styles";
 
-import { useEffect, useState } from "react";
-import { Background } from "../../components/Background";
-import { motion } from "framer-motion";
 import {
-  loginLogoVariants,
-  loginVariants,
-  welcomeVariants,
-} from "../../components/MotionVariants";
-
-import { useDispatch, useSelector } from "react-redux";
-import { Types } from "../../store/reducers/userReducer";
-import { IUser } from "../../store/types";
-import Loader from "../../components/Loader";
-import { login } from "../../Utils/authHandler";
-import { useRef } from "react";
-
-interface IStateUserProps {
-  stateUser: IUser;
-}
-
-interface IFirebaseUser {
-  displayName?: string | null;
-  email: string;
-  photoURL?: string | null;
-  uid: string;
-}
+  ErrorText,
+  ForgetPassword,
+  Form,
+  LoadingState,
+  LockIcon,
+  LoginButton,
+  LoginContainer,
+  PasswordInput,
+  SaveLoginCheckbox,
+  SaveLoginLabel,
+  SaveLoginWrapper,
+  SloganWrapper,
+  SubscribeInviteText,
+  Title,
+  UserIcon,
+  UsernameInput,
+} from "./styles";
 
 export function Login() {
   const [input, setInput] = useState({

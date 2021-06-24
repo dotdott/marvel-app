@@ -1,8 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
-import { LoginContainer } from "./styles";
-
+import { Link, useHistory } from "react-router-dom";
 import {
   Title,
   Form,
@@ -11,19 +8,24 @@ import {
   LoginButton,
   SubscribeInviteText,
   ErrorText,
-} from "../styles";
+  LoadingState,
+} from "../Login/styles";
+import { LoginContainer } from "./styles";
+import { Background } from "../../components/Background";
 
-import { Background } from "../../../components/Background";
 import { useDispatch, useSelector } from "react-redux";
-
-interface ErrorData {
-  errors: {
-    error: string;
-  };
-}
+import { Types } from "../../store/reducers/userReducer";
+import { signup } from "../../Utils/authHandler";
+import { IFirebaseUser, IStateUserProps } from "../../types_global";
+import Loader from "../../components/Loader";
 
 export function Signup() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const { error } = useSelector((state: IStateUserProps) => state.stateUser);
 
   const [changes, setChanges] = useState({
     email: "",
@@ -32,27 +34,36 @@ export function Signup() {
     error: "",
   });
 
-  // if(auth.uid) return <Redirect to='/' />
-
-  // const ERROR = useSelector((state: ErrorData) => {
-  //     const err = state.errors;
-
-  //     return err.error
-  // });
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setIsLoading(true);
 
-    if (changes.password === changes.password2) {
+    const result: any = await signup(changes.email, changes.password);
+
+    if (result.type === "SUCCESS") {
+      const user: IFirebaseUser = result.value;
+
+      if (user) {
+        dispatch({
+          type: Types.SET_USER_STORE,
+          id: user.uid,
+          name: user.displayName,
+          email: user.email,
+          photo_url: user.photoURL,
+          save_login: true,
+        });
+
+        setIsLoading(false);
+        return history.push("/browse");
+      }
+    }
+
+    if (result.type === "FAILURE") {
+      setIsLoading(false);
+
       dispatch({
-        type: "SIGN_UP",
-        email: changes.email,
-        password: changes.password,
-      });
-    } else {
-      dispatch({
-        type: "CHANGE_ERROR",
-        error: "not_match",
+        type: Types.USER_ERROR_AUTH,
+        error: result.value,
       });
     }
   }
@@ -99,7 +110,7 @@ export function Signup() {
             placeholder="Confirme sua senha"
             onChange={(e) => handleChange(e)}
           />
-          {/* <ErrorText>{ERROR}</ErrorText> */}
+          <ErrorText>{error}</ErrorText>
 
           <LoginButton type="submit">Cadastrar</LoginButton>
         </Form>
@@ -109,6 +120,12 @@ export function Signup() {
           <Link to="/login">Acesse aqui</Link>
         </SubscribeInviteText>
       </LoginContainer>
+
+      {isLoading && (
+        <LoadingState>
+          <Loader />
+        </LoadingState>
+      )}
     </>
   );
 }
