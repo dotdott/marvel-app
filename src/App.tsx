@@ -6,15 +6,12 @@ import PrivateRoute from "./components/PrivateRoute";
 import { CardsProvider } from "./contexts/CardsContext";
 import Browse from "./pages/Browse";
 import { Login } from "./pages/Login";
-import { Signup } from "./pages/Login/Signup";
+import { Signup } from "./pages/Signup";
 import { Preload } from "./pages/Preload";
 import { Types } from "./store/reducers/userReducer";
 import { IUser } from "./store/types";
 import "./styles/globals.css";
-
-interface IStateUserProps {
-  stateUser: IUser;
-}
+import { IStateUserProps } from "./types_global";
 
 function App() {
   const { save_login, id } = useSelector(
