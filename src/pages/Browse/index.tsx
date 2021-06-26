@@ -16,6 +16,8 @@ import styled from "styled-components";
 import BrowseNavbar from "./components/Navbar";
 import { useEffect } from "react";
 import { Types } from "../../store/reducers/cardsReducer";
+import { IStateCardProps } from "../../types_global";
+import { useCallback } from "react";
 interface stateProps extends Element {
   card: CardProps[];
 }
@@ -56,17 +58,17 @@ function Browse() {
 
   const location = useLocation();
 
+  const { data } = useSelector((state: IStateCardProps) => state.stateCards);
+
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch({
-  //     type: Types.SET_CARDS_STORE,
-  //     id: 2,
-  //     image: "nao tem",
-  //     title: "tem sim",
-  //     content: "talvez tenha",
-  //   });
-  // }, []);
+  useEffect(() => {
+    dispatch({
+      type: Types.CARDS_STORE_REQUEST,
+    });
+  }, []);
+
+  console.log(data);
 
   function fetchCards(card: CardProps[]) {
     // return card.map((card: CardProps) => <Card key={card.id} card={card} />);
