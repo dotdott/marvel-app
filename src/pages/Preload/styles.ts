@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { devices } from '../../styles/devices';
 
 export const Container = styled.div`
-    position: absolute;
-    top: 0;
+    /* position: absolute;
+    top: 0; */
 
     width: 100vw;
     height: 100vh;

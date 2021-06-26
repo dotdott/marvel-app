@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import { login } from "../../auth/auth";
 import { Background } from "../../components/Background";
 import Loader from "../../components/Loader";
 
@@ -13,7 +14,6 @@ import {
 
 import { Types } from "../../store/reducers/userReducer";
 import { IFirebaseUser, IStateUserProps } from "../../types_global";
-import { login } from "../../Utils/authHandler";
 
 import {
   Container,
