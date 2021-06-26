@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { Background } from "../../components/Background";
 import { Card } from "../../components/Card";
@@ -13,7 +13,9 @@ import { devices } from "../../styles/devices";
 
 import CardModal from "../../components/CardModal";
 import styled from "styled-components";
-import BrowseNavbar from "./Navbar";
+import BrowseNavbar from "./components/Navbar";
+import { useEffect } from "react";
+import { Types } from "../../store/reducers/cardsReducer";
 interface stateProps extends Element {
   card: CardProps[];
 }
@@ -53,6 +55,18 @@ function Browse() {
   const { showDetails } = useContext(CardsContext);
 
   const location = useLocation();
+
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch({
+  //     type: Types.SET_CARDS_STORE,
+  //     id: 2,
+  //     image: "nao tem",
+  //     title: "tem sim",
+  //     content: "talvez tenha",
+  //   });
+  // }, []);
 
   function fetchCards(card: CardProps[]) {
     // return card.map((card: CardProps) => <Card key={card.id} card={card} />);

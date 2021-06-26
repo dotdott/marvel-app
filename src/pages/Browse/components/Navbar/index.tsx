@@ -2,9 +2,9 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-import { Types } from "../../../store/reducers/userReducer";
-import { logout } from "../../../Utils/authHandler";
-import { WindowResize } from "../../../Utils/WindowResize";
+import { logout } from "../../../../auth/auth";
+import { Types } from "../../../../store/reducers/userReducer";
+import { WindowResize } from "../../../../Utils/WindowResize";
 
 import {
   LogoRedBackground,

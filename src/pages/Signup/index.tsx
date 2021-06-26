@@ -15,7 +15,7 @@ import { Background } from "../../components/Background";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Types } from "../../store/reducers/userReducer";
-import { signup } from "../../Utils/authHandler";
+import { signup } from "../../auth/auth";
 import { IFirebaseUser, IStateUserProps } from "../../types_global";
 import Loader from "../../components/Loader";
 

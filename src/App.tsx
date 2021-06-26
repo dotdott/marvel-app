@@ -30,7 +30,8 @@ function App() {
 
   return (
     <CardsProvider>
-      <AnimatePresence exitBeforeEnter>
+      {/* exitBeforeEnter */}
+      <AnimatePresence>
         <Router>
           <Switch>
             <Route exact path="/" component={Preload} />

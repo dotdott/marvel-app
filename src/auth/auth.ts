@@ -1,5 +1,5 @@
 import { auth } from "../firebase";
-import { errorsHandler } from './errorsHandler';
+import { errorsHandler } from '../Utils/errorsHandler';
 
 const type = {
   error: "FAILURE",
