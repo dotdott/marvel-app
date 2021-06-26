@@ -10,7 +10,9 @@ const authPersistConfig = {
   storage,
 };
 
-export default combineReducers({
+const rootReducer = combineReducers({
   stateCards: cardsReducer,
   stateUser: persistReducer(authPersistConfig, userReducer),
 });
+
+export default rootReducer;

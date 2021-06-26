@@ -1,24 +1,41 @@
 import { createActions, createReducer } from "reduxsauce";
 
 const INITIAL_STATE = {
-  id: -1,
-  image: "",
-  title: "",
-  content: "",
+  isLoading: false,
+
+  request: '',
+
+  data: [],
+
+  error: {},
 };
 
 export const { Types, Creators } = createActions({
-  setCardsStore: ["id", "image", "title", "content"],
+  CardsStoreRequest: ["request", 'isLoading'],
+  CardsStoreSuccess: ["data", 'isLoading'],
+  CardsStoreFailure: ["error", 'isLoading'],
 });
 
-const setCardsStore = (state = INITIAL_STATE, action: any) => ({
+const CardsStoreRequest = (state = INITIAL_STATE, action: any) => ({
   ...state,
-  id: action.id,
-  image: action.image,
-  title: action.title,
-  content: action.content,
+  isLoading: true,
+  request: action.request,
+});
+
+const CardsStoreSuccess= (state = INITIAL_STATE, action: any) => ({
+  ...state,
+  data: action.data,
+  isLoading: false,
+});
+
+const CardsStoreFailure = (state = INITIAL_STATE, action: any) => ({
+  ...state,
+  error: action.error,
+  isLoading: false,
 });
 
 export default createReducer(INITIAL_STATE, {
-  [Types.SET_CARDS_STORE]: setCardsStore,
+  [Types.CARDS_STORE_REQUEST]: CardsStoreRequest,
+  [Types.CARDS_STORE_SUCCESS]: CardsStoreSuccess,
+  [Types.CARDS_STORE_FAILURE]: CardsStoreFailure,
 });

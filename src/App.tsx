@@ -6,10 +6,9 @@ import PrivateRoute from "./components/PrivateRoute";
 import { CardsProvider } from "./contexts/CardsContext";
 import Browse from "./pages/Browse";
 import { Login } from "./pages/Login";
-import { Signup } from "./pages/Signup";
 import { Preload } from "./pages/Preload";
+import { Signup } from "./pages/Signup";
 import { Types } from "./store/reducers/userReducer";
-import { IUser } from "./store/types";
 import "./styles/globals.css";
 import { IStateUserProps } from "./types_global";
 
