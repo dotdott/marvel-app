@@ -19,6 +19,7 @@ function App() {
 
   const dispatch = useDispatch();
 
+  /*eslint-disable*/
   useEffect(() => {
     if (id !== "" && save_login !== true) {
       dispatch({

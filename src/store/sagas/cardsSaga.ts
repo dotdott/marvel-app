@@ -1,5 +1,5 @@
 import { call, put } from "redux-saga/effects";
-import { api } from "../../api/api";
+import { api, baseURL } from "../../api/api";
 import { Types } from "../reducers/cardsReducer";
 
 interface IResponse{
@@ -10,12 +10,12 @@ interface IResponse{
   },
 }
 
-export function* comicsGetDataSaga(action: any){
+export function* cardsGetDataSaga(action: any){
   try {
    const response: IResponse = yield call(() => {
-      return api.get('/comics', {
+      return api.get(`${baseURL}/${action.route}`, {
         params: {
-          request: action.request,
+          offset: action.offset,
         }
       })
     })

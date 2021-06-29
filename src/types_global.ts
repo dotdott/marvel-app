@@ -9,6 +9,9 @@ export interface IStateCardProps {
 
 export interface ICards {
   data: [];
+  offset: number;
+  route: string;
+  isLoading: boolean;
 }
 
 export interface IFirebaseUser {
@@ -17,3 +20,16 @@ export interface IFirebaseUser {
   photoURL?: string | null;
   uid: string;
 }
+
+export type ICard = {
+  id: string;
+  title: string;
+  name: string;
+  description: string;
+  resourceURI: string;
+
+  thumbnail: {
+    path: string;
+    extension: string;
+  };
+};
