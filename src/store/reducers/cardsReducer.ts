@@ -3,15 +3,15 @@ import { createActions, createReducer } from "reduxsauce";
 const INITIAL_STATE = {
   isLoading: false,
 
-  request: '',
-
   data: [],
+  offset: 0,
+  route: '/characters',
 
   error: {},
 };
 
 export const { Types, Creators } = createActions({
-  CardsStoreRequest: ["request", 'isLoading'],
+  CardsStoreRequest: ["data", 'isLoading', 'offset', 'route'],
   CardsStoreSuccess: ["data", 'isLoading'],
   CardsStoreFailure: ["error", 'isLoading'],
 });
@@ -19,7 +19,9 @@ export const { Types, Creators } = createActions({
 const CardsStoreRequest = (state = INITIAL_STATE, action: any) => ({
   ...state,
   isLoading: true,
-  request: action.request,
+  data: action.data,
+  offset: action.offset,
+  route: action.route,
 });
 
 const CardsStoreSuccess= (state = INITIAL_STATE, action: any) => ({

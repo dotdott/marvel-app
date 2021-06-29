@@ -1,102 +1,82 @@
+import { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
-import { Background } from "../../components/Background";
+
+import { CardsContext } from "../../contexts/CardsContext";
+import { Types } from "../../store/reducers/cardsReducer";
+
+import { ICard, IStateCardProps } from "../../types_global";
+import { WindowResize } from "../../Utils/WindowResize";
+
 import { Card } from "../../components/Card";
 import { Dropdown } from "../../components/Dropdown";
-import { CardsContext } from "../../contexts/CardsContext";
-
-import { CardWrapper, Container } from "./styles";
-
-import { WindowResize } from "../../Utils/WindowResize";
-import { useContext } from "react";
-import { devices } from "../../styles/devices";
-
 import CardModal from "../../components/CardModal";
-import styled from "styled-components";
 import BrowseNavbar from "./components/Navbar";
-import { useEffect } from "react";
-import { Types } from "../../store/reducers/cardsReducer";
-import { IStateCardProps } from "../../types_global";
-import { useCallback } from "react";
-interface stateProps extends Element {
-  card: CardProps[];
-}
 
-type CardProps = {
-  id: string;
-  title: string;
-  image: string;
-  content: string;
-};
-
-const CardModalBackground = styled.div`
-  width: 100%;
-  height: 100vh;
-
-  position: absolute;
-  top: -4px;
-  z-index: 99;
-
-  background: linear-gradient(
-    0.25turn,
-    #000,
-    #000 61%,
-    rgba(255, 255, 255, 0.15) 100%
-  );
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  ${devices.m1600} {
-    top: -2%;
-  }
-`;
+import { CardWrapper, Container, Loading, CardModalBackground } from "./styles";
+import { useHistory } from "react-router-dom";
 
 function Browse() {
   const { showDetails } = useContext(CardsContext);
 
   const location = useLocation();
+  const history = useHistory();
 
-  const { data } = useSelector((state: IStateCardProps) => state.stateCards);
+  const { data, offset, route, isLoading } = useSelector(
+    (state: IStateCardProps) => state.stateCards
+  );
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch({
-      type: Types.CARDS_STORE_REQUEST,
-    });
-  }, []);
+  const handlePathByURL = (url: string) => {
+    if (url === "/browse") return "/characters";
+    if (url === "/browse/series") return "/series";
+    if (url === "/browse/comics") return "/comics";
 
-  console.log(data);
-
-  function fetchCards(card: CardProps[]) {
-    // return card.map((card: CardProps) => <Card key={card.id} card={card} />);
-  }
-
-  const displayCards = useSelector((state: stateProps) => {
-    const card = state.card;
-
-    return fetchCards(card);
-  });
+    history.push("/browse");
+    return "/characters";
+  };
 
   const size = WindowResize();
+
+  useEffect(() => {
+    const path = handlePathByURL(location.pathname);
+
+    dispatch({
+      type: Types.CARDS_STORE_REQUEST,
+      route: path,
+      offset,
+    });
+  }, []);
 
   return (
     <Container>
       <BrowseNavbar />
-      <Background />
 
-      {location.pathname === "/browse/movies" && <Dropdown />}
+      {isLoading ? (
+        <Loading>Carregando...</Loading>
+      ) : (
+        <>
+          {location.pathname === "/browse/movies" && <Dropdown />}
 
-      {showDetails && (
-        <CardModalBackground>
-          <CardModal />
-        </CardModalBackground>
-      )}
+          {showDetails && (
+            <CardModalBackground>
+              <CardModal />
+            </CardModalBackground>
+          )}
 
-      {size.width !== undefined && (
-        <CardWrapper>{/* {displayCards} */}</CardWrapper>
+          <CardWrapper>
+            {data &&
+              data.map((item: ICard) => (
+                <Card card={item} key={item.id} route={route} />
+              ))}
+          </CardWrapper>
+
+          {/* {   size.width !== undefined && (
+
+              <CardWrapper>{displayCards}</CardWrapper>
+             )} */}
+        </>
       )}
     </Container>
   );

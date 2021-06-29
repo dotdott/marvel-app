@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { logout } from "../../../../auth/auth";
 import { Types } from "../../../../store/reducers/userReducer";
+import { Types as TypesCard } from "../../../../store/reducers/cardsReducer";
 import { WindowResize } from "../../../../Utils/WindowResize";
 
 import {
@@ -17,6 +18,7 @@ import {
   MenuMobile,
   CloseMenuButton,
 } from "./styles";
+import { useCallback } from "react";
 
 function BrowseNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,6 +28,16 @@ function BrowseNavbar() {
   const history = useHistory();
 
   const size = WindowResize();
+
+  const handleTabAction = useCallback(
+    (route: string) => {
+      return dispatch({
+        type: TypesCard.CARDS_STORE_REQUEST,
+        route,
+      });
+    },
+    [dispatch]
+  );
 
   async function handleLogout() {
     await logout();
@@ -68,9 +80,9 @@ function BrowseNavbar() {
               to="/browse"
               exact={true}
               activeClassName="active"
-              onClick={() => dispatch({ type: "FETCH_CHARACTERS" })}
+              onClick={() => handleTabAction("/characters")}
             >
-              Personagens
+              Characters
             </NavLink>
           </NavItem>
         </motion.div>
@@ -78,11 +90,11 @@ function BrowseNavbar() {
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
           <NavItem>
             <NavLink
-              to="/browse/movies"
+              to="/browse/series"
               activeClassName="active"
-              onClick={() => dispatch({ type: "FETCH_MOVIES" })}
+              onClick={() => handleTabAction("/series")}
             >
-              Filmes
+              Series
             </NavLink>
           </NavItem>
         </motion.div>
@@ -90,18 +102,18 @@ function BrowseNavbar() {
         <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
           <NavItem>
             <NavLink
-              to="/browse/HQs"
+              to="/browse/comics"
               activeClassName="active"
-              onClick={() => dispatch({ type: "FETCH_HQS" })}
+              onClick={() => handleTabAction("/comics")}
             >
-              HQs
+              Comics
             </NavLink>
           </NavItem>
         </motion.div>
 
         <NavItem last onClick={handleLogout}>
           <UserIcon src="/assets/avatar.png" alt="dummy photo" />
-          Sair
+          Logout
         </NavItem>
       </Navigation>
     </Navbar>
