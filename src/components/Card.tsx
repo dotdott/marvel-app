@@ -1,12 +1,10 @@
 /*eslint-disable*/
-import { useContext } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import { CardsContext } from "../contexts/CardsContext";
 import { devices } from "../styles/devices";
+import { ICard } from "../types_global";
 
-import cardImg from "../assets/bg-2.jpg";
-import { ICard, IStateCardProps } from "../types_global";
-import { useSelector } from "react-redux";
+import CardModal from "../components/CardModal";
 
 const Container = styled.div`
   position: relative;
@@ -21,11 +19,31 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   border-radius: 3rem;
+
+  @media screen and (max-width: 1300px) {
+    min-width: 315px;
+    max-width: 315px;
+  }
+  @media screen and (max-width: 850px) {
+    min-width: 330px;
+    max-width: 330px;
+  }
 `;
 
 const CardImage = styled.img`
   height: 600px;
   margin-right: 1rem;
+  min-width: 415px;
+  max-width: 415px;
+
+  @media screen and (max-width: 1300px) {
+    min-width: 340px;
+    max-width: 340px;
+  }
+  @media screen and (max-width: 850px) {
+    min-width: 350px;
+    max-width: 350px;
+  }
 `;
 
 const CardInfoDiv = styled.div`
@@ -76,11 +94,14 @@ interface ICardProps {
 }
 
 export function Card({ card, route }: ICardProps) {
-  const { openModal, setSelectedCard } = useContext(CardsContext);
+  const [showModal, setShowModal] = useState(false);
 
-  function handleCard({ card }: ICardProps) {
-    // openModal(card.id);
-    // setSelectedCard(card);
+  function handleShowModal() {
+    return setShowModal(true);
+  }
+
+  function handleHideModal() {
+    return setShowModal(false);
   }
 
   const title = route === "/characters" ? card.name : card.title;
@@ -96,16 +117,14 @@ export function Card({ card, route }: ICardProps) {
         <CardInfoWrapper>
           <CardTitle>{title}</CardTitle>
           <CardDescription>
-            {card.description || "No description avaliable"}
+            {card.description ?? "No description avaliable"}
           </CardDescription>
         </CardInfoWrapper>
 
-        <CardDetails
-        // onClick={() => handleCard({ card })}
-        >
-          ver detalhes
-        </CardDetails>
+        <CardDetails onClick={handleShowModal}>Show Details</CardDetails>
       </CardInfoDiv>
+
+      {showModal && <CardModal hide={handleHideModal} card={card} />}
     </Container>
   );
 }
