@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
-import { CardsProvider } from "./contexts/CardsContext";
 import Browse from "./pages/Browse";
 import { Login } from "./pages/Login";
 import { Preload } from "./pages/Preload";
@@ -28,20 +27,20 @@ function App() {
     }
   }, []);
 
+  {
+    /* exitBeforeEnter */
+  }
   return (
-    <CardsProvider>
-      {/* exitBeforeEnter */}
-      <AnimatePresence>
-        <Router>
-          <Switch>
-            <Route exact path="/" component={Preload} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <PrivateRoute path="/browse" component={Browse} />
-          </Switch>
-        </Router>
-      </AnimatePresence>
-    </CardsProvider>
+    <AnimatePresence>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Preload} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <PrivateRoute path="/browse" component={Browse} />
+        </Switch>
+      </Router>
+    </AnimatePresence>
   );
 }
 

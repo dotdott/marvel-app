@@ -1,24 +1,26 @@
-import { useContext, useEffect } from "react";
+import "@brainhubeu/react-carousel/lib/style.css";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
-
-import { CardsContext } from "../../contexts/CardsContext";
-import { Types } from "../../store/reducers/cardsReducer";
-
-import { ICard, IStateCardProps } from "../../types_global";
-import { WindowResize } from "../../Utils/WindowResize";
-
+import { useHistory } from "react-router-dom";
+import Slider from "react-slick";
+import styled from "styled-components";
 import { Card } from "../../components/Card";
 import { Dropdown } from "../../components/Dropdown";
-import CardModal from "../../components/CardModal";
+import Loader from "../../components/Loader";
+import { Types } from "../../store/reducers/cardsReducer";
+import { ICard, IStateCardProps } from "../../types_global";
 import BrowseNavbar from "./components/Navbar";
+import { CardWrapper, Container, SliderWrapper } from "./styles";
 
-import { CardWrapper, Container, Loading, CardModalBackground } from "./styles";
-import { useHistory } from "react-router-dom";
+const LoaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+`;
 
 function Browse() {
-  const { showDetails } = useContext(CardsContext);
-
   const location = useLocation();
   const history = useHistory();
 
@@ -33,11 +35,10 @@ function Browse() {
     if (url === "/browse/series") return "/series";
     if (url === "/browse/comics") return "/comics";
 
+    // case user tries to acess any other route
     history.push("/browse");
     return "/characters";
   };
-
-  const size = WindowResize();
 
   useEffect(() => {
     const path = handlePathByURL(location.pathname);
@@ -49,34 +50,53 @@ function Browse() {
     });
   }, []);
 
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 3,
+    responsive: [
+      {
+        breakpoint: 1650,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 1000,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+    ],
+  };
   return (
     <Container>
       <BrowseNavbar />
 
       {isLoading ? (
-        <Loading>Carregando...</Loading>
+        <LoaderWrapper>
+          <Loader />
+        </LoaderWrapper>
       ) : (
-        <>
-          {location.pathname === "/browse/movies" && <Dropdown />}
+        <CardWrapper>
+          {location.pathname === "/browse/series" && <Dropdown />}
 
-          {showDetails && (
-            <CardModalBackground>
-              <CardModal />
-            </CardModalBackground>
-          )}
-
-          <CardWrapper>
-            {data &&
-              data.map((item: ICard) => (
-                <Card card={item} key={item.id} route={route} />
-              ))}
-          </CardWrapper>
-
-          {/* {   size.width !== undefined && (
-
-              <CardWrapper>{displayCards}</CardWrapper>
-             )} */}
-        </>
+          <SliderWrapper>
+            <Slider {...settings}>
+              {data &&
+                data.map((item: ICard) => (
+                  <Card card={item} key={item.id} route={route} />
+                ))}
+            </Slider>
+          </SliderWrapper>
+        </CardWrapper>
       )}
     </Container>
   );

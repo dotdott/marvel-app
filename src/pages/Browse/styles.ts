@@ -26,7 +26,6 @@ export const ArrowIcon = styled.img`
   margin: 0 1rem;
 `;
 
-
 export const CardModalBackground = styled.div`
   width: 100%;
   height: 100vh;
@@ -52,7 +51,6 @@ export const CardModalBackground = styled.div`
 `;
 
 export const CardWrapper = styled.div`
-
   height: 100%;
   width: 100%;
   object-fit: cover;
@@ -61,4 +59,12 @@ export const CardWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 3rem;
+`;
+
+export const SliderWrapper = styled.div`
+  width: 95%;
+
+  @media screen and (max-width: 850px) {
+    width: 90%;
+  }
 `;
