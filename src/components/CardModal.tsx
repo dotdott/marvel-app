@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { devices } from "../styles/devices";
 import { ICard } from "../types_global";
 
 interface Props {
@@ -8,7 +9,8 @@ interface Props {
 const Container = styled.div<Props>`
   z-index: 999;
   position: fixed;
-  right: 85%;
+  top: 27.7%;
+  left: 30%;
 
   display: flex;
   justify-content: center;
@@ -20,6 +22,11 @@ const Container = styled.div<Props>`
       ? "linear-gradient(to right, rgb(255,0,0) 50%, rgba(64,14,14,9))"
       : "linear-gradient(to bottom, rgb(255,0,0) 10%, rgba(64,14,14,9))"};
   border-radius: 2rem;
+
+  ${devices.m768} {
+    right: auto;
+    flex-direction: column;
+  }
 `;
 
 const CardImage = styled.img`
@@ -31,6 +38,9 @@ const CardImage = styled.img`
 
   min-width: 390px;
   max-width: 390px;
+  ${devices.m768} {
+    height: auto;
+  }
 `;
 
 const CardInfoWrapper = styled.div`

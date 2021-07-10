@@ -1,4 +1,3 @@
-import "@brainhubeu/react-carousel/lib/style.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
@@ -6,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import Slider from "react-slick";
 import styled from "styled-components";
 import { Card } from "../../components/Card";
+import CardModal from "../../components/CardModal";
 import { Dropdown } from "../../components/Dropdown";
 import Loader from "../../components/Loader";
 import { Types } from "../../store/reducers/cardsReducer";
@@ -20,13 +20,46 @@ const LoaderWrapper = styled.div`
   height: 90%;
 `;
 
+const settings = {
+  infinite: true,
+  centerPadding: "60px",
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 3,
+  responsive: [
+    {
+      breakpoint: 1650,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 2,
+        infinite: true,
+      },
+    },
+    {
+      breakpoint: 1000,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        infinite: true,
+      },
+    },
+    {
+      breakpoint: 750,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        infinite: true,
+      },
+    },
+  ],
+};
+
 function Browse() {
   const location = useLocation();
   const history = useHistory();
 
-  const { data, offset, route, isLoading } = useSelector(
-    (state: IStateCardProps) => state.stateCards
-  );
+  const { data, offset, route, isLoading, showModal, selectedCard } =
+    useSelector((state: IStateCardProps) => state.stateCards);
 
   const dispatch = useDispatch();
 
@@ -50,32 +83,14 @@ function Browse() {
     });
   }, []);
 
-  const settings = {
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 3,
-    responsive: [
-      {
-        breakpoint: 1650,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 2,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 1000,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-    ],
-  };
+  function handleHideModal() {
+    return dispatch({
+      type: Types.SET_SELECTED_CARD,
+      selectedCard: {},
+      showModal: false,
+    });
+  }
+
   return (
     <Container>
       <BrowseNavbar />
@@ -98,6 +113,7 @@ function Browse() {
           </SliderWrapper>
         </CardWrapper>
       )}
+      {showModal && <CardModal hide={handleHideModal} card={selectedCard} />}
     </Container>
   );
 }
