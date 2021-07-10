@@ -5,6 +5,8 @@ import { devices } from "../styles/devices";
 import { ICard } from "../types_global";
 
 import CardModal from "../components/CardModal";
+import { useDispatch } from "react-redux";
+import { Types } from "../store/reducers/cardsReducer";
 
 const Container = styled.div`
   position: relative;
@@ -20,13 +22,17 @@ const Container = styled.div`
   flex-direction: column;
   border-radius: 3rem;
 
-  @media screen and (max-width: 1300px) {
+  ${devices.m1280} {
     min-width: 315px;
     max-width: 315px;
   }
-  @media screen and (max-width: 850px) {
-    min-width: 330px;
-    max-width: 330px;
+  ${devices.m850} {
+    min-width: 280px;
+    max-width: 280px;
+  }
+  ${devices.m768} {
+    min-width: 400px;
+    max-width: 400px;
   }
 `;
 
@@ -36,13 +42,18 @@ const CardImage = styled.img`
   min-width: 415px;
   max-width: 415px;
 
-  @media screen and (max-width: 1300px) {
+  ${devices.m1280} {
     min-width: 340px;
     max-width: 340px;
   }
-  @media screen and (max-width: 850px) {
+  ${devices.m850} {
     min-width: 350px;
     max-width: 350px;
+  }
+
+  ${devices.m768} {
+    min-width: 420px;
+    max-width: 420px;
   }
 `;
 
@@ -68,6 +79,11 @@ const CardInfoDiv = styled.div`
 
   ${devices.m1000} {
     height: 60%;
+  }
+
+  ${devices.m768} {
+    min-width: 400px;
+    max-width: 400px;
   }
 `;
 
@@ -95,13 +111,14 @@ interface ICardProps {
 
 export function Card({ card, route }: ICardProps) {
   const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
 
   function handleShowModal() {
-    return setShowModal(true);
-  }
-
-  function handleHideModal() {
-    return setShowModal(false);
+    return dispatch({
+      type: Types.SET_SELECTED_CARD,
+      selectedCard: card,
+      showModal: true,
+    });
   }
 
   const title = route === "/characters" ? card.name : card.title;
@@ -117,14 +134,12 @@ export function Card({ card, route }: ICardProps) {
         <CardInfoWrapper>
           <CardTitle>{title}</CardTitle>
           <CardDescription>
-            {card.description ?? "No description avaliable"}
+            {card.description || "No description avaliable"}
           </CardDescription>
         </CardInfoWrapper>
 
         <CardDetails onClick={handleShowModal}>Show Details</CardDetails>
       </CardInfoDiv>
-
-      {showModal && <CardModal hide={handleHideModal} card={card} />}
     </Container>
   );
 }

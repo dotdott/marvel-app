@@ -12,6 +12,8 @@ export interface ICards {
   offset: number;
   route: string;
   isLoading: boolean;
+  selectedCard: ICard;
+  showModal: boolean;
 }
 
 export interface IFirebaseUser {

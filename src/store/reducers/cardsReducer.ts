@@ -5,15 +5,25 @@ const INITIAL_STATE = {
 
   data: [],
   offset: 0,
-  route: '/characters',
+  route: "/characters",
+  selectedCard: {},
+  showModal: false,
 
   error: {},
 };
 
 export const { Types, Creators } = createActions({
-  CardsStoreRequest: ["data", 'isLoading', 'offset', 'route'],
-  CardsStoreSuccess: ["data", 'isLoading'],
-  CardsStoreFailure: ["error", 'isLoading'],
+  CardsStoreRequest: ["data", "isLoading", "offset", "route"],
+  CardsStoreSuccess: ["data", "isLoading"],
+  CardsStoreFailure: ["error", "isLoading"],
+
+  SetSelectedCard: ["selectedCard", "showModal"],
+});
+
+const SetSelectedCard = (state = INITIAL_STATE, action: any) => ({
+  ...state,
+  selectedCard: action.selectedCard,
+  showModal: action.showModal,
 });
 
 const CardsStoreRequest = (state = INITIAL_STATE, action: any) => ({
@@ -24,7 +34,7 @@ const CardsStoreRequest = (state = INITIAL_STATE, action: any) => ({
   route: action.route,
 });
 
-const CardsStoreSuccess= (state = INITIAL_STATE, action: any) => ({
+const CardsStoreSuccess = (state = INITIAL_STATE, action: any) => ({
   ...state,
   data: action.data,
   isLoading: false,
@@ -40,4 +50,5 @@ export default createReducer(INITIAL_STATE, {
   [Types.CARDS_STORE_REQUEST]: CardsStoreRequest,
   [Types.CARDS_STORE_SUCCESS]: CardsStoreSuccess,
   [Types.CARDS_STORE_FAILURE]: CardsStoreFailure,
+  [Types.SET_SELECTED_CARD]: SetSelectedCard,
 });
