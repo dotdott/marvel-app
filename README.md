@@ -1,4 +1,4 @@
-## Working in progress..
+## Check live
 
 - [Check live](https://marvel-app.vercel.app/)
 
