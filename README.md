@@ -1,21 +1,26 @@
-## BEING UPDATED
+## Working in progress..
 
-- [Check Old Version](https://marvel-app.vercel.app/)
+- [Check live](https://marvel-app.vercel.app/)
 
 ## About it so far.
 
-- Marvel themed app with page animations && user authentication.
-- This project was writed PT-BR.
-- Splash screen && login page with animations handmade.
-- Login/Register authentication build with firebase.
-- Homepage >> /Browse displaying marvel movies/cards.
+- [ x ] Marvel themed app with page transition animations.
+- [ x ] Authentication login/register with firebase.
+- [ x ] Checkbox to save login and keep user loggeded in.
+- [ x ] Public/Private routes based on user authentication.
+- [ x ] Caroussel to scroll more cards.
+- [ x ] Modal to display more info about a selected card.
+- [ x ] Responsive to mobiles.
 
 ## Techs
 
-- React
+- React ++ React-Router ++ React-Slick
 - TypeScript
-- Redux
-- Saga
+- Redux ++ Saga ++ Persisted State
 - Styled-components
 - Firebase
 - framer-motion
+
+@[Data provided by Marvel. © 2021 MARVEL](http://marvel.com)
+
+@Made by me with intuition of practing skills.

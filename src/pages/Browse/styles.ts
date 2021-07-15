@@ -68,3 +68,9 @@ export const SliderWrapper = styled.div`
     width: 90%;
   }
 `;
+
+export const Attribution = styled.a`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+`;

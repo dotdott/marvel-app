@@ -54,7 +54,7 @@ const CardInfoWrapper = styled.div`
 `;
 const CardTitle = styled.h2`
   margin-bottom: 1.5rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-family: "axiforma_bold", sans-serif;
 `;
 const CardInfo = styled.p`
@@ -87,9 +87,20 @@ const CloseModal = styled.img`
 interface ICardModalProps {
   hide: () => void;
   card: ICard;
+  type: string;
 }
 
-export default function CardModal({ hide, card }: ICardModalProps) {
+export default function CardModal({ hide, card, type }: ICardModalProps) {
+  const comicsShow = card.comics?.items?.map((item) => (
+    <CardInfoSpan>{item.name}</CardInfoSpan>
+  ));
+
+  const seriesShow = <CardInfoSpan>{card.series?.name}</CardInfoSpan>;
+
+  const storiesShow = card.stories?.items?.map((item) => (
+    <CardInfoSpan>{item.name}</CardInfoSpan>
+  ));
+
   return (
     <Container reverse={card.id}>
       <CardImage
@@ -99,13 +110,14 @@ export default function CardModal({ hide, card }: ICardModalProps) {
 
       <CardInfoWrapper>
         <CardTitle>{card.title}</CardTitle>
-        <CardInfo>Aparições:</CardInfo>
-        <CardInfoSpan>Vingadores - era de Ultron</CardInfoSpan>
-        <CardInfoSpan>Vingadores - era de Ultron</CardInfoSpan>
-        <CardInfoSpan>Vingadores - era de Ultron</CardInfoSpan>
-        <CardInfoSpan>Vingadores - era de Ultron</CardInfoSpan>
+        <CardInfo>Shows:</CardInfo>
+        {type === "/browse"
+          ? comicsShow ?? "No data available"
+          : type === "/browse/comics"
+          ? seriesShow ?? "No data available"
+          : storiesShow ?? "No data available"}
 
-        <CardReviewsStarTitle>Avaliações dos Fãs</CardReviewsStarTitle>
+        <CardReviewsStarTitle>Stars</CardReviewsStarTitle>
 
         <div style={{ display: "flex" }}>
           <CardStar src="/assets/star.svg" alt="star" />
