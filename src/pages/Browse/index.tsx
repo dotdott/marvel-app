@@ -11,7 +11,7 @@ import Loader from "../../components/Loader";
 import { Types } from "../../store/reducers/cardsReducer";
 import { ICard, IStateCardProps } from "../../types_global";
 import BrowseNavbar from "./components/Navbar";
-import { CardWrapper, Container, SliderWrapper } from "./styles";
+import { CardWrapper, Container, SliderWrapper, Attribution } from "./styles";
 
 const LoaderWrapper = styled.div`
   display: flex;
@@ -113,7 +113,17 @@ function Browse() {
           </SliderWrapper>
         </CardWrapper>
       )}
-      {showModal && <CardModal hide={handleHideModal} card={selectedCard} />}
+      {showModal && (
+        <CardModal
+          hide={handleHideModal}
+          type={location.pathname}
+          card={selectedCard}
+        />
+      )}
+
+      <Attribution href="http://marvel.com" target="_blank">
+        Data provided by Marvel. © 2021 MARVEL
+      </Attribution>
     </Container>
   );
 }

@@ -34,4 +34,17 @@ export type ICard = {
     path: string;
     extension: string;
   };
+
+  comics?: {
+    items?: ICardItems[];
+  };
+  series?: ICardItems;
+  stories?: {
+    items?: ICardItems[];
+  };
+};
+
+type ICardItems = {
+  name: string;
+  resourceURI: string;
 };
