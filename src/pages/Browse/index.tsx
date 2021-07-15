@@ -54,6 +54,7 @@ const settings = {
   ],
 };
 
+/*eslint-disable*/
 function Browse() {
   const location = useLocation();
   const history = useHistory();
